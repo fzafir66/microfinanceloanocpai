@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: credit-app-route
+  namespace: <demo>
+spec:
+  to:
+    kind: Service
+    name: credit-app-service
+  port:
+    targetPort: 80
+  tls:
+    termination: edge  # or reencrypt if using TLS between router and pod
