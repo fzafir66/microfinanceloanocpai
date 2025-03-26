@@ -1,5 +1,13 @@
 Will edit Read Me Session Accordingly
 
+# List and download files
+response = s3_client.list_objects_v2(Bucket=bucket_name, Prefix=model_prefix)
+for obj in response.get("Contents", []):
+    key = obj["Key"]
+    local_path = os.path.join(local_model_dir, os.path.relpath(key, model_prefix))
+    os.makedirs(os.path.dirname(local_path), exist_ok=True)
+    s3_client.download_file(bucket_name, key, local_path)
+
 # Define inference URL for the hosted LLM
 llm_infer_url = "https://t5-torchscript-micro-finance-demo.apps.dell90b.tecaiocp.com/v2/models/t5-torchscript/infer"
 
