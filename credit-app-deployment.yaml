@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: credit-app
+  namespace: <demo>
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: credit-app
+  template:
+    metadata:
+      labels:
+        app: credit-app
+    spec:
+      containers:
+        - name: credit-app
+          image: <your-image>
+          ports:
+            - containerPort: 8080
