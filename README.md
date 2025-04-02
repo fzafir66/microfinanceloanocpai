@@ -24,8 +24,8 @@ In the created bucket called ‘demo’ for example, store the files in the foll
   * Store raw data from [kaggle](https://www.kaggle.com/datasets/youngdaniel/loan-dataset)
 * models
   * xgboost
-   * 1
-     * <trained_xgboost.onnx>
+    * 1
+      * <trained_xgboost.onnx>
  * t5-small
   * config.pbtxt
   * 1
