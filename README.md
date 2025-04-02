@@ -20,21 +20,21 @@ The required operators for this demo include:
 
 # Store the files in MinIO
 In the created bucket called ‘demo’ for example, store the files in the following path:
-* Dataset
-  * Store raw data from kaggle
-Models
-Xgboost
-1
-<trained_xgboost.onnx>
-T5-small
-config.pbtxt
-1
-<model_files>
-flanT5-fine-tuned
-<tokenizer_files>
-training_columns.pkl
-best_model.joblib
-X_train.csv (need to run ‘1. TrainTest.ipynb’ to generate this file)
+* dataset
+  * Store raw data from [kaggle](https://www.kaggle.com/datasets/youngdaniel/loan-dataset)
+* models
+** xgboost
+*** 1
+**** <trained_xgboost.onnx>
+** t5-small
+*** config.pbtxt
+*** 1
+**** <model_files>
+* flanT5-fine-tuned
+** <tokenizer_files>
+* training_columns.pkl
+* best_model.joblib
+* X_train.csv (need to run ‘1. TrainTest.ipynb’ to generate this file)
 
 
 
