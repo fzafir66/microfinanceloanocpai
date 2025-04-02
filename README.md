@@ -53,14 +53,21 @@ In the created bucket called ‘demo’ for example, store the files in the foll
 
 
 
-# Edit the model endpoints in app.py
+# Edit the Model Endpoints in app.py
 1. 
 
 llm_infer_url = "https://t5-torchscript-micro-finance-demo.apps.example.com/v2/models/t5-torchscript/infer"
 infer_url = "https://xgboost-micro-finance-demo.apps.example.com/v2/models/xgboost/infer"
 
 
+# Deploy the Frontend
+
+
 # Monitoring the Model on Grafana
+1. Login to the cluster via OpenShift CLI (oc command).
+2. Enable monitoring for user defined projects by running the command:
+** oc -n openshift-monitoring patch configmap cluster-monitoring-config -p '{"data":{"config.yaml":"enableUserWorkload: true"}}'
+3.
 
 
 # Monitor NVIDIA GPU Metrics
