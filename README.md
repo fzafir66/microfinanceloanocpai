@@ -66,8 +66,8 @@ infer_url = "https://xgboost-micro-finance-demo.apps.example.com/v2/models/xgboo
 # Monitoring the Model on Grafana
 1. Login to the cluster via OpenShift CLI (oc command).
 2. Enable monitoring for user defined projects by running the command:
-** oc -n openshift-monitoring patch configmap cluster-monitoring-config -p '{"data":{"config.yaml":"enableUserWorkload: true"}}'
-3.
+			oc -n openshift-monitoring patch configmap cluster-monitoring-config -p '{"data":{"config.yaml":"enableUserWorkload: true"}}'
+5.
 
 
 # Monitor NVIDIA GPU Metrics
