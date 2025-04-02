@@ -25,7 +25,7 @@ In the created bucket called ‘demo’ for example, store the files in the foll
 * models
   * xgboost
    * 1
-    * <trained_xgboost.onnx>
+     * <trained_xgboost.onnx>
  * t5-small
   * config.pbtxt
   * 1
@@ -57,3 +57,12 @@ headers = {"Content-Type": "application/json"}
 
 # Monitoring the Model on Grafana
 
+# References
+OpenShift AI Documentation
+[https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.18/html/installing_and_uninstalling_openshift_ai_self-managed/installing-and-deploying-openshift-ai_install#requirements-for-openshift-ai-self-managed_install](https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.18/html/installing_and_uninstalling_openshift_ai_self-managed/installing-and-deploying-openshift-ai_install#requirements-for-openshift-ai-self-managed_install)
+
+Kaggle Dataset
+[https://www.kaggle.com/datasets/youngdaniel/loan-dataset](https://www.kaggle.com/datasets/youngdaniel/loan-dataset)
+
+Configuring the NVIDIA DCGM Exporter Dashboard
+[https://docs.nvidia.com/datacenter/cloud-native/openshift/latest/enable-gpu-monitoring-dashboard.html#viewing-gpu-metrics](https://docs.nvidia.com/datacenter/cloud-native/openshift/latest/enable-gpu-monitoring-dashboard.html#viewing-gpu-metrics)
