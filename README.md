@@ -66,9 +66,43 @@ infer_url = "https://xgboost-micro-finance-demo.apps.example.com/v2/models/xgboo
 # Monitoring the Model on Grafana
 1. Login to the cluster via OpenShift CLI (oc command).
 2. Enable monitoring for user defined projects by running the command:
-*
-	* oc -n openshift-monitoring patch configmap cluster-monitoring-config -p '{"data":{"config.yaml":"enableUserWorkload: true"}}'
-5.
+	* `oc -n openshift-monitoring patch configmap cluster-monitoring-config -p '{"data":{"config.yaml":"enableUserWorkload: true"}}'`
+3. Validate that the prometheus and thanos-ruler pods were created in the openshift-user-workload-monitoring project:
+	* `oc get pods -n openshift-user-workload-monitoring`
+4. Run the command `oc new-project grafana`, `oc create sa grafana-serviceaccount`
+5. Navigate to Openshift-console --> Projects --> Grafana
+6. Click the + button on the top right to add the following: `/modelmesh_grafana/grafana-prep.yaml`
+7. Navigate to OperatorHub --> Install Grafana Operator
+8. Make sure to change the project context to openshift-user-workload-monitoring at the top
+9. Create the grafana instance under "Installed Operators --> Grafana Operator --> Grafana --> Create Grafana --> YAML View" and paste the following: `/modelmesh_grafana/grafana-oauth.yaml`
+10. Run the following command
+	* `oc adm policy add-cluster-role-to-user cluster-monitoring-view -z grafana-serviceaccount`
+11. Run the following command and save/paste the token for future use. 
+	* `oc create token grafana-serviceaccount -n grafana`
+12. Create route
+	* `oc project grafana`
+	* `oc get svc`
+	* `oc create route edge grafana --service=grafana-oauth-service --insecure-policy=Redirect`
+	* `oc get route`
+13. In the browser --> Navigate to grafana route --> Login with root/secret
+14. On the Grafana Dashboard > Connections > Add Data Source:
+* Prometheus
+* Name: Thanos
+* Connection: https://<thanos-querier-openshift-monitoring-service>:9091
+* Authentication: Forward OAuth Identity
+* Skip TLS certificate validation
+* HTTP headers
+  * Header: Authorization
+  * Value: Bearer <grafana-serviceaccount-token>
+15. In the left hand panel, navigate to Dashboards --> Manage --> Import and paste the following: `/modelmesh_grafana/grafana-dashboard.json`
+16. Open the dashboard in the grafana UI and enter values for the following parameters on top of the dashboard
+* Namespace: <demo or whatever you named the project>
+* Service Name: modelmesh-serving
+* Container: mm
+* Runtime : triton
+
+
+
 
 
 # Monitor NVIDIA GPU Metrics
