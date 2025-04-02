@@ -76,11 +76,11 @@ infer_url = "https://xgboost-micro-finance-demo.apps.example.com/v2/models/xgboo
 * `oc expose pod <your-pod-name> --port=8080 --name=dev-frontend-service`
 4. Create a route for the service
 * `oc expose service dev-frontend-service`
-5. Get the route by running `oc get routes`
-6. Port-forward the pod running the workbench to port 8080
+5. Port-forward the pod running the workbench to port 8080
 * `oc port-forward pod <your-pod-name> 8080:8080`
-7. In RHOAI console, go to your project > workbench > open the workbench > navigate to DevFrontend.ipynb and run the last cell which should have the command
+6. In RHOAI console, go to your project > workbench > open the workbench > navigate to DevFrontend.ipynb and run the last cell which should have the command
 * `"!python flask_app/app.py"`
+7. Get the route by running `oc get routes` and access it on the browser.
 
 # Monitoring the Model on Grafana
 1. Login to the cluster via OpenShift CLI (oc command).
