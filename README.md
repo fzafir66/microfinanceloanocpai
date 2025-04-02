@@ -21,7 +21,7 @@ The required operators for this demo include:
 # Store the files in MinIO
 In the created bucket called ‘demo’ for example, store the files in the following path:
 * Dataset
-** Store raw data from kaggle
+  * Store raw data from kaggle
 Models
 Xgboost
 1
