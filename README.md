@@ -40,28 +40,45 @@ In the created bucket called ‘demo’ for example, store the files in the foll
 
 # Create a New Workbench
 1. In RHOAI console, navigate to the `demo` project.
-2. 
+2. Create a workbench with the following:
+* 
 
 # Import Jupyter Notebooks into the Workbench
-1. 
+1. In RHOAI console, navigate to the `demo` project. Open the workbench.
+2. Upload the files in `GenerativeModelWorkbench` and `PredictiveModelWorkbench`.
 
 # Create a Custom Serving Runtime
 1. In RHOAI console, got to Settings > Serving Runtimes. Create a custome serving runtime, using the `/triton/servingruntime.yaml` manifest file.
 
 # Deploy and Serve the models
-1.
-
+1. In RHOAI console, navigate to the `demo` project.
+2. Go to the Model Serving tab and create a model server
+3. Deploy both models where:
+   * The file path for the predictive xgboost model should be `models/xgboost/1/`
+   * the file path for the generative t5 model should be `models/t5-small/`
 
 
 # Edit the Model Endpoints in app.py
-1. 
+1. In RHOAI, go to your project > workbench > open the workbench > navigate to app.py
+2. Edit the model endpoints, for e.g.,
 
 llm_infer_url = "https://t5-torchscript-micro-finance-demo.apps.example.com/v2/models/t5-torchscript/infer"
 infer_url = "https://xgboost-micro-finance-demo.apps.example.com/v2/models/xgboost/infer"
 
 
 # Deploy the Frontend
-
+1. In the CLI, go to your project by running `oc project <project_name>`
+2. Find the pod name of the pod containing the workbench
+* `oc get po`
+3. Create a service for the pod
+* `oc expose pod <your-pod-name> --port=8080 --name=dev-frontend-service`
+4. Create a route for the service
+* `oc expose service dev-frontend-service`
+5. Get the route by running `oc get routes`
+6. Port-forward the pod running the workbench to port 8080
+* `oc port-forward pod <your-pod-name> 8080:8080`
+7. In RHOAI console, go to your project > workbench > open the workbench > navigate to DevFrontend.ipynb and run the last cell which should have the command
+* `"!python flask_app/app.py"`
 
 # Monitoring the Model on Grafana
 1. Login to the cluster via OpenShift CLI (oc command).
@@ -100,9 +117,6 @@ infer_url = "https://xgboost-micro-finance-demo.apps.example.com/v2/models/xgboo
 * Service Name: modelmesh-serving
 * Container: mm
 * Runtime : triton
-
-
-
 
 
 # Monitor NVIDIA GPU Metrics
