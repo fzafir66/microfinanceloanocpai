@@ -41,7 +41,7 @@ In the created bucket called ‘demo’ for example, store the files in the foll
 # Create a New Workbench
 1. In RHOAI console, navigate to the `demo` project.
 2. Create a workbench e.g. `test-wb` with the following:
-* Notebook Image: CUDA
+* Notebook Image: TrustyAI
 * Container Size: Medium
 * Data Connection: `test-dc`
 
