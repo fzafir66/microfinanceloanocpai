@@ -16,13 +16,12 @@ The required operators for this demo include:
 2. In OCP console, navigate to the `demo` project. Create a S3-compatible storage server, MinIO, using the `/minio/minio.yaml` manifest file.
 3. In OCP console, navigate to Networking > Routes. Login to MinIO console and create a bucket, e.g. `test`.
 4. In RHOAI console, under the `demo` project created earlier, and add a new data connection, e.g. `test-dc`.
-5. In the same project, create a workbench, e.g. `test-wb`.
-6. Open the `test-wb` workbench when the status is 'Running'.
+
 
 # Store the files in MinIO
 In the created bucket called ‘demo’ for example, store the files in the following path:
 * Dataset
-*     Store raw data from kaggle
+** Store raw data from kaggle
 Models
 Xgboost
 1
