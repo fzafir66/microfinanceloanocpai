@@ -1,0 +1,160 @@
+# Store sensitive info such as credentials
+apiVersion: v1
+stringData:
+  MINIO_ROOT_USER: minio
+  MINIO_ROOT_PASSWORD: minio123
+kind: Secret
+metadata:
+  name: minio
+  labels:
+    app.kubernetes.io/name: minio
+    app.kubernetes.io/instance: minio
+---
+# Ensure persistent storage
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minio
+  labels:
+    app.kubernetes.io/name: minio
+    app.kubernetes.io/instance: minio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: minio
+      app.kubernetes.io/instance: minio
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: minio
+        app.kubernetes.io/instance: minio
+    spec:
+      securityContext: {}
+      containers:
+      - name: minio
+        securityContext: {}
+        image: "quay.io/minio/minio"
+        imagePullPolicy: IfNotPresent
+        command:
+        - /usr/bin/docker-entrypoint.sh
+        - server
+        - /data
+        - "--console-address"
+        - ":9001"
+        envFrom:
+        - secretRef:
+            name: minio
+        ports:
+        - name: http
+          containerPort: 9000
+          protocol: TCP
+        - name: console
+          containerPort: 9001
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 4Gi
+          requests:
+            cpu: 500m
+            memory: 1Gi
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        livenessProbe:
+          httpGet:
+            path: /minio/health/live
+            port: http
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /minio/health/live
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+      tolerations:
+        - key: nvidia.com/gpu
+          value: "True"
+          effect: NoSchedule
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 32Gi # Amend to however much storage your model files need
+---
+# Exposes MinIO pods to other components within the cluster
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+  labels:
+    app.kubernetes.io/name: minio
+    app.kubernetes.io/instance: minio
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9000
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: 9001
+      targetPort: console
+      protocol: TCP
+      name: console
+  selector:
+    app.kubernetes.io/name: minio
+    app.kubernetes.io/instance: minio
+---
+# Provides external access to MinIO's web UI 
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app.kubernetes.io/instance: minio
+    app.kubernetes.io/name: minio
+  name: minio-console
+spec:
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  port:
+    targetPort: console
+  to:
+    kind: Service
+    name: minio
+    weight: 100
+  wildcardPolicy: None
+status: {}
+---
+# Expose MinIO API to external clients
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app.kubernetes.io/instance: minio
+    app.kubernetes.io/name: minio
+  name: minio-api
+spec:
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  port:
+    targetPort: http
+  to:
+    kind: Service
+    name: minio
+    weight: 100
+  wildcardPolicy: None
+status: {}
