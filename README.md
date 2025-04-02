@@ -40,15 +40,17 @@ In the created bucket called ‘demo’ for example, store the files in the foll
 
 # Create a New Workbench
 1. In RHOAI console, navigate to the `demo` project.
-2. Create a workbench with the following:
-* 
+2. Create a workbench e.g. `test-wb` with the following:
+* Notebook Image: CUDA
+* Container Size: Medium
+* Data Connection: `test-dc`
 
 # Import Jupyter Notebooks into the Workbench
-1. In RHOAI console, navigate to the `demo` project. Open the workbench.
+1. In RHOAI console, navigate to the `demo` project. Open the workbench `test-wb`.
 2. Upload the files in `GenerativeModelWorkbench` and `PredictiveModelWorkbench`.
 
 # Create a Custom Serving Runtime
-1. In RHOAI console, got to Settings > Serving Runtimes. Create a custome serving runtime, using the `/triton/servingruntime.yaml` manifest file.
+1. In RHOAI console, go to Settings > Serving Runtimes. Create a custom serving runtime, using the `/triton/servingruntime.yaml` manifest file.
 
 # Deploy and Serve the models
 1. In RHOAI console, navigate to the `demo` project.
@@ -59,7 +61,7 @@ In the created bucket called ‘demo’ for example, store the files in the foll
 
 
 # Edit the Model Endpoints in app.py
-1. In RHOAI, go to your project > workbench > open the workbench > navigate to app.py
+1. In RHOAI, go to your project `demo `> workbench `test-wb` > open the workbench > navigate to app.py
 2. Edit the model endpoints, for e.g.,
 
 llm_infer_url = "https://t5-torchscript-micro-finance-demo.apps.example.com/v2/models/t5-torchscript/infer"
