@@ -77,7 +77,7 @@ infer_url = "https://xgboost-micro-finance-demo.apps.example.com/v2/models/xgboo
 4. Create a route for the service
 * `oc expose service dev-frontend-service`
 5. Port-forward the pod running the workbench to port 8080
-* `oc port-forward pod <your-pod-name> 8080:8080`
+* `oc port-forward <your-pod-name> 8080:8080`
 6. In RHOAI console, go to your project > workbench > open the workbench > navigate to DevFrontend.ipynb and run the last cell which should have the command
 * `"!python flask_app/app.py"`
 7. Get the route by running `oc get routes` and access it on the browser.
