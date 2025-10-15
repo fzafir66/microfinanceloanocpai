@@ -112,7 +112,7 @@ infer_url = "https://xgboost-micro-finance-demo.apps.example.com/v2/models/xgboo
 * Skip TLS certificate validation
 * HTTP headers
   * Header: Authorization
-  * Value: Bearer <grafana-serviceaccount-token>
+  * Value: Bearer '<grafana-serviceaccount-token>'
 15. In the left hand panel, navigate to Dashboards --> Manage --> Import and paste the following: `/modelmesh_grafana/grafana-dashboard.json`
 16. Open the dashboard in the grafana UI and enter values for the following parameters on top of the dashboard
 * Namespace: demo or whatever you named the project
