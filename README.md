@@ -1,5 +1,3 @@
-Note: Work in Progress
-
 # Pre-requisites
 View the requirements in [docs.redhat.com](https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.18/html/installing_and_uninstalling_openshift_ai_self-managed/installing-and-deploying-openshift-ai_install) to install Red Hat OpenShift AI Self-Managed.
 
